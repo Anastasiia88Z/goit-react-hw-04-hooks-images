@@ -14,13 +14,13 @@ export default function App() {
   const [selectedImg, setSelectedImg] = useState(null);
   const [page, setPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
-  const [loader, setLoader] = useState('false');
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     if (!pictureName) return;
     async function getFetchPictures() {
       try {
-        setLoader('true');
+        setLoader(true);
 
         const gallery = await fetchPictures(pictureName, page);
         if (pictureName.trim() === '' || !gallery.length) {
@@ -37,7 +37,7 @@ export default function App() {
       } catch (error) {
         toast.error('Something went wrong');
       } finally {
-        setLoader('false');
+        setLoader(false);
       }
     }
     getFetchPictures();
@@ -68,7 +68,7 @@ export default function App() {
 
       <ImageGallery pictures={pictures} onSelect={handleSelectedImage} />
 
-      {loader === 'true' && <Loader />}
+      {loader && <Loader />}
 
       {showButton && <Button onClick={loadMoreButtonClick} />}
 
